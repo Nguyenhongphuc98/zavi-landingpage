@@ -47,9 +47,9 @@
                 <a id="zidopen" href="#" onclick="launchApp()" class="launching__open-windown__link"> nhấp vào đây </a>
                 để mở ứng dụng hoặc
                 <!-- <a {{#ZAVI_DOWNLOAD}} href="{{ZAVI_DOWNLOAD}}" {{/ZAVI_DOWNLOAD}} class="launching__open-windown__link"
-                    id="launching_download_url"> tải và khởi chạy Zavi </a> phucnh7--> 
-                    <a {{#ZAVI_DOWNLOAD}} href="https://res-update-pc.zadn.vn/zavi/beta/win/ZaviSetup-21.6.1-Beta.10.exe" class="launching__open-windown__link"
-                    id="launching_download_url"> tải và khởi chạy Zavi </a>
+                    id="launching_download_url"> tải và khởi chạy Zavi </a> phucnh7-->
+                <a {{#ZAVI_DOWNLOAD}} href="https://res-update-pc.zadn.vn/zavi/beta/win/ZaviSetup-21.6.1-Beta.10.exe"
+                    class="launching__open-windown__link" id="launching_download_url"> tải và khởi chạy Zavi </a>
             </p>
 
             <p class="launching__download">Bạn có thể tải và cài đặt Zavi trực tiếp tại <a href="/"
@@ -87,7 +87,7 @@
             // function checkProtocol(e = "zavi://{{HOST_PROTOCAL_LAUCHING}}/join", t = (() => { })) { phucnh7
             function checkProtocol(e = "zavi://zavi.me/join", t = (() => { })) {
                 try {
-                    const E = "launching_download_url", _ = 864e5,
+                    const E = "launching_download_url", _ = 5e3, //864e5
                         I = 3e3, z = "lst_inst", L = "https://res-update-pc.zadn.vn/zavi";
                     var n, o, i, r = (navigator.userAgent || "").toLowerCase(),
                         c = (/windows/.test(r), /ipad/.test(r)),
@@ -222,12 +222,15 @@
                             return void console.info("[launch] not valid device");
                         let id = e("id"),
                             tk = e("token"),
-                            t = e("t"),
-                            // o = "zavi://{{HOST_PROTOCAL_LAUCHING}}/join?id=" + encodeURIComponent(id) + "&token=" + encodeURIComponent(tk); phucnh7
-                            o = "zavi://zavi.corp.zavi.me/join?id=" + encodeURIComponent(id) + "&token=" + encodeURIComponent(tk);
+                            t = e("t");
 
-                        console.info("open url", o);
-                        checkProtocol(o, e => { e || changeLayoutToDownload() })
+                        // o = "zavi://{{HOST_PROTOCAL_LAUCHING}}/join?id=" + encodeURIComponent(id) + "&token=" + encodeURIComponent(tk); phucnh7
+                        const HOST_PROTOCAL_LAUCHING = "zavi.corp.zavi.me";
+                        const protocol = (t === 'co') ? 'zavi-corp' : 'zavi';
+                        const uri = `${protocol}://${HOST_PROTOCAL_LAUCHING}/join?id=` + encodeURIComponent(id) + "&token=" + encodeURIComponent(tk);
+
+                        console.info("open url", uri);
+                        checkProtocol(uri, e => { e || changeLayoutToDownload() })
                     }()
                 }, 100);
             }
