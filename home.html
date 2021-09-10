@@ -276,8 +276,7 @@
             window.addEventListener('blur', onBlur);
             window.addEventListener('focus', onFocus);
 
-            iframe.src = uri;
-            // iframe.contentWindow.location.href = uri;
+            iframe.contentWindow.location.href = uri;
         }
 
         /**
@@ -287,7 +286,7 @@
          * @param {object} options - optional info to process
          */
         function openCustomProtocol(uri, onResult, options = {}) {
-            const timeout = options.timeout ? options.timeout : 300;
+            const timeout = options.timeout ? options.timeout : 1000;
             const browserName = options.browserName ? options.browserName : "Unknown";
 
             // make sure passed value is valid
@@ -387,7 +386,7 @@
                             }
                         })
                     }()
-                }, 200);
+                }, 100);
             }
         }
 
