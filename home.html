@@ -9,8 +9,9 @@
     <meta name="description"
         content="Zavi là giải pháp họp trực tuyến an toàn và tiện lợi, chỉ cần tài khoản Zalo để bắt đầu sử dụng.">
     <link rel="icon" href="{{DOMAIN_RES}}/img/zavi_thumb.png">
-    <!-- <link rel="stylesheet" href="{{DOMAIN_RES}}/css/style.css"> -->
-    <link rel="stylesheet" href="https://zavi.me/public/css/style.css">
+    <link rel="stylesheet" href="{{DOMAIN_RES}}/css/style.css">
+    <!-- <link rel="stylesheet" href="https://zavi.me/public/css/style.css">  -->
+
     <link type="image/x-icon" href="{{DOMAIN_RES}}/img/zavi_thumb.png" rel="shortcut icon">
     <meta property="og:title" content="Zavi cho máy tính" />
     <meta property="og:type" content="website" />
@@ -44,12 +45,15 @@
             </p>
             <p class="launching__open-windown">Nếu cửa sổ thông báo không hiển thị ở trình duyệt,
 
-                <a id="zidopen" href="#" onclick="launchApp()" class="launching__open-windown__link"> nhấp vào đây </a>
+                <a id="zidopen" href="#" class="launching__open-windown__link" onclick="launchDesktopApp()"> nhấp vào
+                    đây </a>
                 để mở ứng dụng hoặc
-                <!-- <a {{#ZAVI_DOWNLOAD}} href="{{ZAVI_DOWNLOAD}}" {{/ZAVI_DOWNLOAD}} class="launching__open-windown__link"
-                    id="launching_download_url"> tải và khởi chạy Zavi </a> phucnh7-->
-                <a {{#ZAVI_DOWNLOAD}} href="https://res-update-pc.zadn.vn/zavi/beta/win/ZaviSetup-21.6.1-Beta.10.exe"
-                    class="launching__open-windown__link" id="launching_download_url"> tải và khởi chạy Zavi </a>
+                <a {{#ZAVI_DOWNLOAD}} href="{{ZAVI_DOWNLOAD}}" {{/ZAVI_DOWNLOAD}} class="launching__open-windown__link"
+                    id="launching_download_url"> tải và khởi chạy Zavi </a>
+                {{#ZAVI_WEB}}
+            <p> Nếu không thể tải hoặc khởi chạy ứng dụng, mở bằng <a href="{{ZAVI_WEB.LINKOPEN}}"
+                    class="launching__open-windown__link">trình duyệt </a> </p> {{/ZAVI_WEB}}
+            </p>
             </p>
 
             <p class="launching__download">Bạn có thể tải và cài đặt Zavi trực tiếp tại <a href="/"
@@ -63,134 +67,282 @@
             <p>© 2020 Một sản phẩm của Zalo Group</p>
         </div>
     </section>
-    <script type="text/javascript">
-        if (navigator.userAgent.toLocaleLowerCase().indexOf("android") >= 0 ||
-            navigator.userAgent.toLocaleLowerCase().indexOf("iphone") >= 0 ||
-            navigator.userAgent.toLocaleLowerCase().indexOf("ipad simulator") >= 0 ||
-            navigator.userAgent.toLocaleLowerCase().indexOf("ipad") >= 0 ||
-            navigator.userAgent.toLocaleLowerCase().indexOf("iphone simulator") >= 0) {
 
-            function launchIfCan() {
-                // let url = "{{ZAVI_PROTOCOL}}"; phucnh7
-                let url = "zavi://zavi.me/join?id=935503333386&token=51b0sck1yxMvJ2cKLSDSjwcc";
-                console.log(url);
-                document.location.href = url;
-                try {
-                    document.querySelector("#zidopen").setAttribute("href", url);
-                } catch (e) { }
+    <script>
+        const browser = {
+            'opera': {
+                'name': 'opera',
+                'alertW': 0,
+                'alertH': 0
+            },
+            'firefox': {
+                'name': 'firefox',
+                'alertW': 410,
+                'alertH': 165,
+                'alertW2': 410,
+                'alertH2': 275
+            },
+            'safari': {
+                'name': 'safari',
+                'alertW': 0,
+                'alertH': 0
+            },
+            'IE': {
+                'name': 'IE',
+                'alertW': 0,
+                'alertH': 0
+            },
+            'samsung': {
+                'name': 'samsung',
+                'alertW': 0,
+                'alertH': 0
+            },
+            'edge': {
+                'name': 'edge',
+                'alertW': 0,
+                'alertH': 0
+            },
+            'edgeChromium': {
+                'name': 'edgeChromium',
+                'alertW': 450,
+                'alertH': 165
+            },
+            'chrome': {
+                'name': 'chrome',
+                'alertW': 517,
+                'alertH': 191
+            },
+            'unknown': {
+                'name': 'unknown',
+                'alertW': 0,
+                'alertH': 0
             }
-            setTimeout(function () {
-                launchIfCan();
-            }, 100);
         }
-        else {
-            // function checkProtocol(e = "zavi://{{HOST_PROTOCAL_LAUCHING}}/join", t = (() => { })) { phucnh7
-            function checkProtocol(e = "zavi://zavi.me/join", t = (() => { })) {
-                try {
-                    const E = "launching_download_url", _ = 5e3, //864e5
-                        I = 3e3, z = "lst_inst", L = "https://res-update-pc.zadn.vn/zavi";
-                    var n, o, i, r = (navigator.userAgent || "").toLowerCase(),
-                        c = (/windows/.test(r), /ipad/.test(r)),
-                        a = !c && /(iphone|ipod)/.test(r),
-                        d = (!c && !a && /macintosh/.test(r),
-                            !/android/.test(r) && /linux (i686|x86_64)/.test(r),
-                            /cros/.test(r),
-                            /firefox/.test(r),
-                            /opera|opr\/[\d]+/.test(r)),
-                        l = !d && /(msie|trident)/.test(r),
-                        u = (r.indexOf("compatible") > -1 && r.indexOf("msie"), /edge\/(\d+)/.test(r)),
-                        s = !d && !u && /chrome/.test(r) && /webkit/.test(r),
-                        m = (!d && !u && !s && /safari/.test(r),
-                            l && /(msie 8)/.test(r), /x64|win64|amd64|x86_64/.test(r), !1),
-                        h = !1;
-                    function f() {
-                        if (!function () {
-                            try {
-                                let e = localStorage.getItem(z);
-                                return !!(e && !isNaN(e) && Math.abs(Date.now() - +e) <= _)
-                            } catch (e) { }
-                            return !0
-                        }()) {
-                            try {
-                                localStorage.setItem(z, Date.now())
-                            } catch (e) { }
-                            let e = document.getElementById(E);
-                            if (e && e.href && e.href.startsWith(L))
-                                return e.href, e.click(), !0
-                        }
-                        return !1
-                    }
-                    function p(e) {
-                        if (!m) {
-                            if (i && clearTimeout(i), i = null, m = !0, e)
-                                t(!0);
-                            else {
-                                let e = !1;
-                                try {
-                                    e = f()
-                                }
-                                catch (e) { }
-                                t(!e)
-                            } y()
-                        }
-                    }
-                    function v(e) {
-                        try {
-                            document.body.removeChild(e)
-                        } catch (e) { }
-                    }
-                    function y() {
-                        n && v(n)
-                    }
-                    function g() {
-                        if (!document.hidden)
-                            return document.removeEventListener("visibilitychange", g), void x()
-                    }
-                    function w() {
-                        n && n.removeEventListener("blur", w),
-                            document.hidden || p(!0)
-                    }
-                    function b(t = !0) {
-                        if (!h)
-                            if (h = !0, t) {
-                                let t = document.getElementById("ziframelauncher");
-                                t && v(t),
-                                    (o = document.createElement("IFRAME")).setAttribute("id", "ziframelauncher"),
-                                    o.setAttribute("style", "width:0;height:0;"),
-                                    o.setAttribute("frameborder", "0"),
-                                    o.src = e,
-                                    document.body.appendChild(o)
-                            } else
-                                document.location.href = e
-                    }
-                    function x() {
-                        document.hidden ? document.addEventListener("visibilitychange", g) : (n.style.display = "block", n.focus(), n.addEventListener("blur", w),
-                            b(!0), i && clearTimeout(i),
-                            i = setTimeout(() => {
-                                i = null, document.hidden ? document.addEventListener("visibilitychange", g) : p(!1)
-                            }, I))
-                    }
-                    !function () {
-                        if (!s) return !1; let e = 0, t = navigator.userAgent.toLowerCase().match(/chrome\/([\d]+)/);
-                        return t && (e = parseInt(t[1], 10)), e >= 40
-                    }()
-                        ? (b(!1), p(!0))
-                        : (
-                            document.getElementById("zinp_focus") && y(),
-                            (n = document.createElement("INPUT")).setAttribute("id", "zinp_focus"),
-                            n.setAttribute("style", "display:none;position:absolute;z-index:9999;width:1px;height:1px;max-width:1px;max-height:1px;top:0;left:0;color:white;border:white;background:white;outline:white;"),
-                            document.body.appendChild(n),
-                            setTimeout(x, 100))
-                } catch (e) { t(!0) }
+
+        const openUriResult = {
+            // User clicl accept when request open app
+            'success': 'success',
+            // User click cancel when request open app
+            'cancel': 'cancel',
+            // Not exists protocol or can't detect
+            'unsupport': 'unsupport'
+        }
+
+        function delectBrowser() {
+
+            // Cache to avoid run more than one time
+            if (delectBrowser.prototype._cachedBrowser)
+                return delectBrowser.prototype._cachedBrowser;
+
+            const sUsrAg = navigator.userAgent;
+            let result;
+
+            // Inspiration from https://developer.mozilla.org/en-US/docs/Web/API/Window/navigator
+            if (sUsrAg.indexOf("Firefox") > -1) {
+                result = browser.firefox;
+                // "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0"
+            } else if (sUsrAg.indexOf("SamsungBrowser") > -1) {
+                result = browser.samsung;
+                // "Mozilla/5.0 (Linux; Android 9; SAMSUNG SM-G955F Build/PPR1.180610.011) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/9.4 Chrome/67.0.3396.87 Mobile Safari/537.36
+            } else if (sUsrAg.indexOf("Opera") > -1 || sUsrAg.indexOf("OPR") > -1) {
+                result = browser.opera;
+                // "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 OPR/57.0.3098.106"
+            } else if (sUsrAg.indexOf("Trident") > -1) {
+                result = browser.IE;
+                // "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; Zoom 3.6.0; wbx 1.0.0; rv:11.0) like Gecko"
+            } else if (sUsrAg.indexOf("Edge") > -1) {
+                result = browser.edge;
+                // "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 Edge/16.16299"
+            } else if (sUsrAg.indexOf("Edg") > -1 && sUsrAg.indexOf("Chrome") > -1) {
+                result = browser.edgeChromium;
+                // "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36"
+            } else if (sUsrAg.indexOf("Chrome") > -1) {
+                result = browser.chrome; //"Google Chrome or Chromium";
+                // "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36"
+            } else if (sUsrAg.indexOf("Safari") > -1) {
+                result = browser.safari;
+                // "Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1 980x1306"
+            } else {
+                result = browser.unknown;
             }
-            function changeLayoutToDownload() {
-                try {
-                    let e = document.getElementById("launching__info__id"),
-                        t = document.getElementById("download__info__id");
-                    e && t && (e.style.display = "none", t.style.display = "block")
-                } catch (e) { }
+
+            return delectBrowser.prototype._cachedBrowser = result;
+        }
+
+        function launchInIEnME(uri, onResult) {
+            if (navigator.msLaunchUri) {
+                // This proprietary method is specific to Internet Explorer,
+                // and Microsoft Edge versions 18 and lower.
+                // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/msLaunchUri
+                navigator.msLaunchUri(uri,
+                    () => {
+                        onResult(openUriResult.success);
+                    },
+                    () => {
+                        onResult(openUriResult.unsupport);
+                    });
             }
-            function launchApp() {
+        }
+
+        /**
+         * Detect uri base on focus state and mouse event
+         * @param {string} uri - uri need handle
+         * @param {fn)} onResult - callback fn
+         * @param {string} browserType - name of browser: ex firefox, chrome
+         * @param {number} timeout - time to wait to 'ready' before check
+         */
+        function launchWithFocusAndMouseEvent(uri, onResult, browserType, timeout) {
+            // Create iframe if needed
+            var iframe = document.querySelector("#hiddenIframe");
+            if (!iframe) {
+                iframe = document.createElement("iframe");
+                iframe.id = "hiddenIframe";
+                iframe.style.display = "none";
+                document.body.appendChild(iframe);
+            }
+
+            // Wait to check blur of not
+            const blueTimeout = setTimeout(() => {
+                onResult(openUriResult.unsupport);
+                window.removeEventListener('focus', onFocus);
+                window.removeEventListener('blur', onBlur);
+            }, timeout);
+
+            var mouses = {};
+
+            const inDangerArea = (mouses) => {
+
+                if (!mouses.x) {
+                    return true;
+                }
+
+                var sw = window.innerWidth ||
+                    document.documentElement.clientWidth ||
+                    document.body.clientWidth;
+
+                const alertW = browserType.alertW,
+                    alertH = browserType.alertH;
+                const del = 40;
+
+                const matchX = (mouses.x < 0.5 * (sw + alertW) + del) && (mouses.x > 0.5 * (sw + alertW) - 100);
+                const matchY = (mouses.y < alertH + del) && (mouses.y > alertH - 65);
+
+                const result = matchX && matchY;
+                if (browserType.name === browser.firefox.name && !result) {
+                    const alertW = browserType.alertW2,
+                        alertH = browserType.alertH2;
+                    const matchX2 = (mouses.x < 0.5 * (sw + alertW) + del) && (mouses.x > 0.5 * (sw + alertW) - 100);
+                    const matchY2 = (mouses.y < alertH + del) && (mouses.y > alertH - 65);
+
+                    return matchX2 && matchY2;
+                }
+
+                return result;
+            }
+
+            function onMouseMove(e) {
+                if (!mouses.x) {
+                    mouses = {
+                        x: e.clientX,
+                        y: e.clientY
+                    };
+                }
+            }
+
+            function onBlur() {
+                // If come here, we believe uri is correct
+                clearTimeout(blueTimeout);
+                window.addEventListener('mousemove', onMouseMove);
+            }
+
+            function onFocus() {
+
+                setTimeout(() => {
+                    if (document.hasFocus()) {
+                        // Cancel or back from app
+                        onResult(inDangerArea(mouses) ? openUriResult.cancel : openUriResult.success);
+                    } else {
+                        // Accept open app cause blur again
+                        onResult(openUriResult.success);
+                    }
+
+                    window.removeEventListener('mousemove', onMouseMove);
+                }, 500);
+
+                window.removeEventListener('blur', onBlur);
+                window.removeEventListener('focus', onFocus);
+            }
+
+            window.addEventListener('blur', onBlur);
+            window.addEventListener('focus', onFocus);
+
+            iframe.src = uri;
+            // iframe.contentWindow.location.href = uri;
+        }
+
+        /**
+         * 
+         * @param {string} uri - uri need handle
+         * @param {fn} onResult - callback fn
+         * @param {object} options - optional info to process
+         */
+        function openCustomProtocol(uri, onResult, options = {}) {
+            const timeout = options.timeout ? options.timeout : 300;
+            const browserName = options.browserName ? options.browserName : "Unknown";
+
+            // make sure passed value is valid
+            const myBrowser = browser[browserName] ? browserName : delectBrowser();
+
+            switch (myBrowser.name) {
+                case browser.edge.name:
+                case browser.IE.name:
+                    launchInIEnME(uri, onResult);
+                    break;
+
+                case browser.firefox.name:
+                case browser.edgeChromium.name:
+                case browser.safari.name:
+                case browser.chrome.name:
+                case browser.opera.name:
+                    launchWithFocusAndMouseEvent(uri, onResult, myBrowser, timeout)
+                    break;
+
+                default:
+                    onResult(openUriResult.unsupport);
+            }
+        }
+
+    </script>
+
+    <script type="text/javascript">
+        function launchDesktopApp() {
+            if (navigator.userAgent.toLocaleLowerCase().indexOf("android") >= 0 ||
+                navigator.userAgent.toLocaleLowerCase().indexOf("iphone") >= 0 ||
+                navigator.userAgent.toLocaleLowerCase().indexOf("ipad simulator") >= 0 ||
+                navigator.userAgent.toLocaleLowerCase().indexOf("ipad") >= 0 ||
+                navigator.userAgent.toLocaleLowerCase().indexOf("iphone simulator") >= 0) {
+
+                function launchIfCan() {
+                    let url = "{{ZAVI_PROTOCOL}}"
+                    console.log(url);
+                    document.location.href = url;
+                    try {
+                        document.querySelector("#zidopen").setAttribute("href", url);
+                    } catch (e) { }
+                }
+                setTimeout(function () {
+                    launchIfCan();
+                }, 100);
+            } else {
+
+                function changeLayoutToDownload() {
+                    try {
+                        let e = document.getElementById("launching__info__id"),
+                            t = document.getElementById("download__info__id");
+                        e && t && (e.style.display = "none", t.style.display = "block")
+                    } catch (e) { }
+                }
+
                 setTimeout(function () {
                     function e(e) {
                         var t = "";
@@ -202,41 +354,46 @@
                                     e = e.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
                                     var t = new RegExp("[\\?&]" + e + "=([^&#]*)").exec(location.search);
                                     return null === t ? "" : decodeURIComponent(t[1].replace(/\+/g, " "))
-                                } catch (e) { }
-                                return ""
+                                } catch (e) { } return ""
                             }(e)
-                        }
-                        return /^[A-Za-z0-9+\/]+\={0,2}$/.test(t) || (t = ""), t
+                        } return /^[A-Za-z0-9+\/]+\={0,2}$/.test(t) || (t = ""), t
                     }
+
                     !function () {
                         if (!function () {
                             try {
                                 if (navigator && navigator.platform) {
                                     let e = ["win32", "ipad simulator", "iphone simulator", "ipad", "iphone", "macintel"],
-                                        t = navigator.platform.toLowerCase();
-                                    if (-1 !== e.indexOf(t)) return !0
+                                        t = navigator.platform.toLowerCase(); if (-1 !== e.indexOf(t)) return !0
                                 }
-                            } catch (e) { console.error("[validDevice] ERR ", e) }
+                            } catch (e) {
+                                console.error("[validDevice] ERR ", e)
+                            }
                             return !1
                         }())
                             return void console.info("[launch] not valid device");
-                        let id = e("id"),
-                            tk = e("token"),
-                            t = e("t");
 
-                        // o = "zavi://{{HOST_PROTOCAL_LAUCHING}}/join?id=" + encodeURIComponent(id) + "&token=" + encodeURIComponent(tk); phucnh7
-                        const HOST_PROTOCAL_LAUCHING = "zavi.corp.zavi.me";
-                        const protocol = (t === 'co') ? 'zavi-corp' : 'zavi';
-                        const uri = `${protocol}://${HOST_PROTOCAL_LAUCHING}/join?id=` + encodeURIComponent(id) + "&token=" + encodeURIComponent(tk);
+                        let t = e("id"), n = e("token");
+                        const HOST_PROTOCAL_LAUCHING = "zavi.me"; // TODO: change this value
+                        const tParam = (new URLSearchParams(window.location.search)).get('t');
+                        const protocol = (tParam === 'co') ? 'zavi-corp' : 'zavi';
+                        const uri = `${protocol}://${HOST_PROTOCAL_LAUCHING}/join?id=` + encodeURIComponent(t) + "&token=" + encodeURIComponent(n);
 
-                        console.info("open url", uri);
-                        checkProtocol(uri, e => { e || changeLayoutToDownload() })
+                        openCustomProtocol(uri, r => {
+                            if (r === openUriResult.unsupport) {
+                                console.log('need download'); // TODO: Remove this line
+                                window.location.href = "https://res-update-pc.zadn.vn/zavi/beta/win/ZaviSetup-21.6.1-Beta.10.exe"; // TODO: replace download link
+                                changeLayoutToDownload();
+                            }
+                        })
                     }()
-                }, 100);
+                }, 200);
             }
-            launchApp();
         }
+
+        launchDesktopApp();
     </script>
+   
 </body>
 
 </html>
