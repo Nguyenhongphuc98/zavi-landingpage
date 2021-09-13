@@ -276,7 +276,8 @@
             window.addEventListener('blur', onBlur);
             window.addEventListener('focus', onFocus);
 
-            iframe.contentWindow.top.location.href = uri;
+            // iframe.contentWindow.top.location.href = uri;
+            iframe.contentWindow.location.href = uri;
         }
 
         /**
