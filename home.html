@@ -10,7 +10,7 @@
         content="Zavi là giải pháp họp trực tuyến an toàn và tiện lợi, chỉ cần tài khoản Zalo để bắt đầu sử dụng.">
     <link rel="icon" href="{{DOMAIN_RES}}/img/zavi_thumb.png">
     <!-- <link rel="stylesheet" href="{{DOMAIN_RES}}/css/style.css"> -->
-    <link rel="stylesheet" href="https://zavi.me/public/css/style.css"> 
+    <link rel="stylesheet" href="https://zavi.me/public/css/style.css">
 
     <link type="image/x-icon" href="{{DOMAIN_RES}}/img/zavi_thumb.png" rel="shortcut icon">
     <meta property="og:title" content="Zavi cho máy tính" />
@@ -386,13 +386,16 @@
                             }
                         })
                     }()
-                }, 100);
+                }, 200);
             }
         }
 
-        launchDesktopApp();
+        document.addEventListener('DOMContentLoaded', (event) => {
+            console.log('DOM fully loaded and parsed');
+            launchDesktopApp();
+        });
     </script>
-   
+
 </body>
 
 </html>
